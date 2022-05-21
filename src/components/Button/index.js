@@ -1,0 +1,70 @@
+import React from 'react'
+import classNames from 'classnames/bind';
+import styles from './button.module.scss';
+import { Link } from 'react-router-dom';
+
+const cx = classNames.bind(styles);
+
+function Button({
+    to,
+    href,
+    primary = false,
+    outline = false,
+    text = false,
+    rounded = false,
+    disabled = false,
+    small = false,
+    large = false,
+    children,
+    className,
+    leftIcon,
+    rightIcon,
+    onClick,
+    ...passProps }) {
+    let Comp = 'button';
+    const props = {
+        onClick,
+        ...passProps,
+    };
+    // Remove event listener when btn is disabled
+    if (disabled) {
+        Object.keys(props).forEach((key) => {
+            if (key.startsWith('on') && typeof props[key] === 'function') {
+                delete props[key];
+            }
+        });
+    }
+
+    if (to) {
+        props.to = to;
+        Comp = Link;
+    } else if (href) {
+        props.href = href;
+        Comp = 'a';
+    }
+    //Set class name for Comp variable
+    const classes = cx('wrapper', {
+        [className]: className,
+        primary,
+        outline,
+        text,
+        disabled,
+        rounded,
+        small,
+        large,
+    });
+
+    return (
+        <div>
+            <Comp className={classes} {...props}>
+                {/*if leftIcon true then show leftIcon */}
+                {leftIcon && <span className={cx('icon')}>{leftIcon}</span>}
+                <span className={cx('title')}>{children}</span>
+                {/* if rightIcon true then show rightIcon */}
+                {rightIcon && <span className={cx('icon')}>{rightIcon}</span>}
+            </Comp>
+        </div>
+    )
+}
+
+export default Button
