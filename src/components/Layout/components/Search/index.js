@@ -18,6 +18,14 @@ function Search() {
     const inputRef = useRef();
 
     useEffect(() => {
+        fetch('https://tiktok.fullstack.edu.vn/api/users/search?q=h&type=less')
+            .then((res) => res.json())
+            .then((res) => {
+                setSearchResult(res.data);
+            })
+    }, [searchValue]);
+
+    useEffect(() => {
         setTimeout(() => {
             setSearchResult([]);
         }, 0);
@@ -41,10 +49,12 @@ function Search() {
                 <div className={cx('search-result')} tabIndex="-1" {...attrs}>
                     <PopperWrapper>
                         <h4 className={cx('search-title')}>Accounts</h4>
-                        <AccountItem />
-                        <AccountItem />
-                        <AccountItem />
-                        <AccountItem />
+
+                        {
+                            searchResult.map((result) => {
+                                return <AccountItem key={result.id} data={result} />;
+                            })
+                        }
                     </PopperWrapper>
                 </div>
             )}
@@ -60,7 +70,7 @@ function Search() {
                         setSearchValue(e.target.value);
                         setSearchResult(e.target.value);
                     }}
-                    onFocus={()=>setShowResult(true)}
+                    onFocus={() => setShowResult(true)}
                 />
                 {searchValue.length > 0 && (
                     <button className={cx('clear')} onClick={handleClear}>
@@ -68,8 +78,10 @@ function Search() {
                     </button>
                 )}
 
-                {/* <FontAwesomeIcon className={cx('loading')} icon={faSpinner} /> */}
-
+                {
+                    // eslint-disable-next-line
+                    // <FontAwesomeIcon className={cx('loading')} icon={faSpinner} />
+                }
                 <button className={cx('search-btn')}>
                     <SearchIcon />
                 </button>
