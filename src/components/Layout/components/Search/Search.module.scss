@@ -49,6 +49,20 @@
         color: rgba(22, 24, 35, 0.34);
     }
 
+    //quay icon
+    .loading {
+        animation: spinners 1s linear infinite;
+    }
+
+    @keyframes spinners {
+        from {
+            transform: translateY(-50%) rotate(0);
+        }
+        to {
+            transform: translateY(-50%) rotate(360deg);
+        }
+    }
+
     &-btn {
         width: var(--search-button-width);
         height: 100%;
