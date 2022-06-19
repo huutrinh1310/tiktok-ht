@@ -7,6 +7,8 @@ import HeadlessTippy from '@tippyjs/react/headless';
 import { SearchIcon } from '~/components/Icons';
 import { faCircleXmark, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import classNames from 'classnames/bind';
+import { useDebounce } from '~/hooks';
+
 import styles from './Search.module.scss';
 const cx = classNames.bind(styles);
 
@@ -16,10 +18,12 @@ function Search() {
     const [showResult, setShowResult] = useState(true);
     const [loading, setLoading] = useState(false);
 
+    const debounce = useDebounce(searchValue, 500);
+
     const inputRef = useRef();
 
     useEffect(() => {
-        if (!searchValue.trim()) {
+        if (!debounce.trim()) {
             // de khi xoa het text trong search thi se xoa cai ket qua tim kiem truoc do
             setSearchResult([]);
             return;
@@ -27,7 +31,7 @@ function Search() {
         setLoading(true);
         fetch(
             `https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(
-                searchValue,
+                debounce,
             )}&type=less`,
         )
             .then((res) => res.json())
@@ -38,7 +42,7 @@ function Search() {
             .catch(() => {
                 setLoading(false);
             });
-    }, [searchValue]);
+    }, [debounce]);
 
     // useEffect(() => {
     //     setTimeout(() => {
@@ -48,8 +52,8 @@ function Search() {
 
     const handleClear = () => {
         setSearchValue('');
+        setSearchResult([]);
         inputRef.current.focus();
-        setSearchResult('');
     };
 
     const handleHideResult = () => {
