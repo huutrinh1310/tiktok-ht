@@ -1,15 +1,18 @@
 import { useEffect, useRef, useState } from 'react';
-import { Wrapper as PopperWrapper } from '~/components/Popper';
-import AccountItem from '~/components/AccountItem';
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import HeadlessTippy from '@tippyjs/react/headless';
-import { SearchIcon } from '~/components/Icons';
 import { faCircleXmark, faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
-import { useDebounce } from '~/hooks';
 
+import { Wrapper as PopperWrapper } from '~/components/Popper';
+import { SearchIcon } from '~/components/Icons';
+
+import { search } from '~/apiServices/searchService';
+
+import AccountItem from '~/components/AccountItem';
+import HeadlessTippy from '@tippyjs/react/headless';
+import { useDebounce } from '~/hooks';
 import styles from './Search.module.scss';
+
 const cx = classNames.bind(styles);
 
 function Search() {
@@ -19,7 +22,6 @@ function Search() {
     const [loading, setLoading] = useState(false);
 
     const debounce = useDebounce(searchValue, 500);
-
     const inputRef = useRef();
 
     useEffect(() => {
@@ -28,27 +30,18 @@ function Search() {
             setSearchResult([]);
             return;
         }
-        setLoading(true);
-        fetch(
-            `https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(
-                debounce,
-            )}&type=less`,
-        )
-            .then((res) => res.json())
-            .then((res) => {
-                setSearchResult(res.data);
-                setLoading(false);
-            })
-            .catch(() => {
-                setLoading(false);
-            });
-    }, [debounce]);
 
-    // useEffect(() => {
-    //     setTimeout(() => {
-    //         setSearchResult([]);
-    //     }, 0);
-    // }, []);
+        // XMLHTTP request
+        // Fetch API
+        const fetchApi = async () => {
+            setLoading(true);
+            const result = await search(debounce, 'less');
+            setSearchResult(result);
+            setLoading(false);
+        };
+
+        fetchApi();
+    }, [debounce]);
 
     const handleClear = () => {
         setSearchValue('');
