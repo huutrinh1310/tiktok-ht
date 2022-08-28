@@ -1,13 +1,11 @@
 import images from '~/assets/images';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    faEllipsisVertical,
-} from '@fortawesome/free-solid-svg-icons';
+import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
 import Tippy from '@tippyjs/react';
 
 import 'tippy.js/dist/tippy.css';
 
-
+import routesConfig from '~/config/routes.js';
 import Button from '~/components/Button';
 import Menu from '~/components/Popper/Menu';
 import {
@@ -26,6 +24,7 @@ import Image from '~/components/image';
 import Search from '../Search';
 import classNames from 'classnames/bind';
 import styles from './Header.module.scss';
+import { Link } from 'react-router-dom';
 const cx = classNames.bind(styles);
 
 const MENU_ITEMS = [
@@ -70,7 +69,6 @@ const MENU_ITEMS = [
 ];
 
 function Header() {
-
     // Handle logic
     const handleMenuChange = (menuItem) => {
         switch (menuItem.type) {
@@ -106,16 +104,16 @@ function Header() {
         },
     ];
 
-
-
     const currentUser = true; //Check user authorized.
 
     return (
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
-                <img src={images.logo} alt="Tiktok" />
+                <Link to={routesConfig.home} className={cx('logo-link')}>
+                    <img src={images.logo} alt="Tiktok" />
+                </Link>
 
-                <Search/>
+                <Search />
 
                 <div className={cx('actions')}>
                     {currentUser ? (
