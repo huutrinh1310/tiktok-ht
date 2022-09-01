@@ -6,7 +6,7 @@ import classNames from 'classnames/bind';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import { SearchIcon } from '~/components/Icons';
 
-import { search } from '~/apiServices/searchService';
+import { search } from '~/services/searchService';
 
 import AccountItem from '~/components/AccountItem';
 import HeadlessTippy from '@tippyjs/react/headless';
