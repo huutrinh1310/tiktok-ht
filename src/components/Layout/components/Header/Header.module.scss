@@ -3,21 +3,27 @@
     --search-height: 46px;
     --search-top-spacer: 9px;
     --search-button-width: 52px;
-    width: 100%;
-    padding: 0 var(--default-layout-horizontal-spacer);
-    height: var(--default-layout-header-height);
-    box-shadow: 0 1px 1px rgba(0 0 0 /12%);
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
     display: flex;
     justify-content: center;
+    width: 100%;
+    background-color: var(--white);
+    height: var(--default-layout-header-height);
+    box-shadow: 0 1px 1px rgba(0 0 0 /12%);
 
     .inner {
         height: 100%;
         width: var(--default-layout-width);
+        padding: 0 var(--default-layout-horizontal-spacer);
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding-right: 24px;
-        padding-left: 20px;
+        // padding-left: 20px;
+        // padding-right: 24px;
     }
 }
 // Actions

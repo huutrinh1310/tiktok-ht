@@ -47,12 +47,47 @@ const MENU_ITEMS = [
                 {
                     type: 'language',
                     code: 'rok',
-                    title: '한국거',
+                    title: '한국어',
                 },
                 {
                     type: 'language',
                     code: 'ja',
                     title: '日本語（日本）',
+                },
+                {
+                    type: 'language',
+                    code: 'sp',
+                    title: 'Spain',
+                },
+                {
+                    type: 'language',
+                    code: 'Fr',
+                    title: 'France',
+                },
+                {
+                    type: 'language',
+                    code: 'CH',
+                    title: 'Chinese',
+                },
+                {
+                    type: 'language',
+                    code: 'ru',
+                    title: 'Русский',
+                },
+                {
+                    type: 'language',
+                    code: 'it',
+                    title: 'Italiano',
+                },
+                {
+                    type: 'language',
+                    code: 'de',
+                    title: 'Deutsch',
+                },
+                {
+                    type: 'language',
+                    code: 'pt',
+                    title: 'Português',
                 },
             ],
         },

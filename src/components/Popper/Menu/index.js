@@ -8,9 +8,14 @@ import Header from './Header';
 
 const cx = classNames.bind(styles);
 
-const defaultFn = () => { };
+const defaultFn = () => {};
 
-function Menu({ children, items = [], hideOnClick = false, onChange = defaultFn }) {
+function Menu({
+    children,
+    items = [],
+    hideOnClick = false,
+    onChange = defaultFn
+}) {
     const [history, setHistory] = useState([{ data: items }]);
     const current = history[history.length - 1];
 
@@ -39,7 +44,7 @@ function Menu({ children, items = [], hideOnClick = false, onChange = defaultFn 
             // ban dau la inactive = unshow
             interactive
             delay={[0, 700]}
-            offset={[12,8]}
+            offset={[12, 8]}
             hideOnClick={hideOnClick}
             //hover render will show follow the placement
             placement="bottom-end"
@@ -51,19 +56,21 @@ function Menu({ children, items = [], hideOnClick = false, onChange = defaultFn 
                             <Header
                                 title="Language"
                                 onBack={() => {
-                                    setHistory((prev) => prev.slice(0, prev.length - 1));
+                                    setHistory((prev) =>
+                                        prev.slice(0, prev.length - 1),
+                                    );
                                 }}
                             />
                         )}
-                        {renderItems()}
+                        <div className={cx('menu-body')}>{renderItems()}</div>
                     </PopperWrapper>
                 </div>
             )}
-             onHide={()=>setHistory(prev=>prev.slice(0, 1))}
-            >
+            onHide={() => setHistory((prev) => prev.slice(0, 1))}
+        >
             {children}
         </Tippy>
-    )
+    );
 }
 
-export default Menu
+export default Menu;
