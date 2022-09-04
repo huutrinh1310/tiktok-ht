@@ -18,14 +18,14 @@ const cx = classNames.bind(styles);
 function Search() {
     const [searchValue, setSearchValue] = useState('');
     const [searchResult, setSearchResult] = useState([]);
-    const [showResult, setShowResult] = useState(true);
+    const [showResult, setShowResult] = useState(false);
     const [loading, setLoading] = useState(false);
 
-    const debounce = useDebounce(searchValue, 500);
+    const debouncedValue = useDebounce(searchValue, 500);
     const inputRef = useRef();
 
     useEffect(() => {
-        if (!debounce.trim()) {
+        if (!debouncedValue.trim()) {
             // de khi xoa het text trong search thi se xoa cai ket qua tim kiem truoc do
             setSearchResult([]);
             return;
@@ -35,13 +35,13 @@ function Search() {
         // Fetch API
         const fetchApi = async () => {
             setLoading(true);
-            const result = await search(debounce, 'less');
+            const result = await search(debouncedValue, 'less');
             setSearchResult(result);
             setLoading(false);
         };
 
         fetchApi();
-    }, [debounce]);
+    }, [debouncedValue]);
 
     const handleClear = () => {
         setSearchValue('');
